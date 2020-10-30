@@ -1,6 +1,6 @@
--   id: add_issue_prefix
-    name: add_issue_prefix
-    entry: add_issue_prefix
+-   id: add-msg-issue-prefix
+    name: add-msg-issue-prefix
+    entry: add-msg-issue-prefix
     language: python
     'types': [python]
     require_serial: true
