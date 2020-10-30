@@ -1,0 +1,6 @@
+-   id: add_issue_prefix
+    name: add_issue_prefix
+    entry: add_issue_prefix
+    language: python
+    'types': [python]
+    require_serial: true
