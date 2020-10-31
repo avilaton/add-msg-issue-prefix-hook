@@ -16,3 +16,8 @@ Add this to your `.pre-commit-config.yaml`
     hooks:
     -   id: add-msg-issue-prefix
 ```
+
+and install prepare-commit-msg hooks using
+```
+pre-commit install --hook-type prepare-commit-msg
+```
