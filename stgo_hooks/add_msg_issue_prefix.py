@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import unicode_literals
+
 import sys
 import re
 import subprocess
 
-def get_ticket_id_from_branch_name(branch_name):
-    return re.findall('^[A-Z]{1,10}-[0-9]{1,5}', branch_name)[0]
+def get_ticket_id_from_branch_name(branch):
+    return re.findall('[a-zA-Z]{1,10}-[0-9]{1,5}', branch)[0]
 
 
 def main():
