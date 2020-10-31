@@ -1,6 +1,6 @@
 -   id: add-msg-issue-prefix
     name: add-msg-issue-prefix
+    description: Add msg issue prefix
     entry: add-msg-issue-prefix
     language: python
-    'types': [python]
-    require_serial: true
+    always_run: true

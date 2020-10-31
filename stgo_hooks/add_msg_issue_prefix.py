@@ -9,6 +9,7 @@ import subprocess
 
 def main(argv=None):
     print("hello from hook")
+    print(argv)
 
     commit_msg_filepath = sys.argv[1]
     print(commit_msg_filepath)
