@@ -6,19 +6,21 @@ import sys
 import re
 import subprocess
 
+def get_ticket_id_from_branch_name(branch_name):
+    return re.findall('^[A-Z]{1,10}-[0-9]{1,5}', branch_name)[0]
 
-def main(argv=None):
-    print("hello from hook")
-    print(argv)
 
+def main():
     commit_msg_filepath = sys.argv[1]
 
     branch = ""
     try:
-        branch = subprocess.getoutput("git symbolic-ref --short HEAD").strip().upper()
+        branch = subprocess.getoutput("git symbolic-ref --short HEAD").strip()
     except Exception as e:
         print(e)
         pass
+    print("branch: {}".format(branch))
+    print("using new regex, ticket is: {}".format(get_ticket_id_from_branch_name(branch)))
 
     regexp = r"(DR-|dr-)(.\d*)"
 
