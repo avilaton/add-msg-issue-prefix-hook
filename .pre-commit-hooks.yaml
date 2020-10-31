@@ -4,3 +4,4 @@
     entry: add-msg-issue-prefix
     language: python
     always_run: true
+    stages: [prepare-commit-msg]
