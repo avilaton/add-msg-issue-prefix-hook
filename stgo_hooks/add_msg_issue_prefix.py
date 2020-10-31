@@ -4,6 +4,7 @@ import sys
 import re
 import subprocess
 
+
 def get_ticket_id_from_branch_name(branch):
     matches = re.findall('[a-zA-Z]{1,10}-[0-9]{1,5}', branch)
     if len(matches) > 0:
