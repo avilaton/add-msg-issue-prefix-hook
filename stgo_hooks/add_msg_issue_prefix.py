@@ -17,6 +17,7 @@ def main():
     except Exception as e:
         print(e)
         pass
+
     print("branch: {}".format(branch))
     print("using new regex, ticket is: {}".format(get_ticket_id_from_branch_name(branch)))
 
@@ -26,7 +27,7 @@ def main():
     issue_number = ""
 
     if result:
-        issue_number = result.group(0)
+        issue_number = result.group(0).upper()
 
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
