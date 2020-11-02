@@ -25,7 +25,7 @@ def main():
     issue_number = ""
 
     if result:
-        issue_number = result.group(0).upper()
+        issue_number = result.upper()
 
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
