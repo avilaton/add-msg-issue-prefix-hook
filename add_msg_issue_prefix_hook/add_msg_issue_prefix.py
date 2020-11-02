@@ -16,10 +16,9 @@ def main():
 
     branch = ""
     try:
-        branch = subprocess.getoutput("git symbolic-ref --short HEAD").strip()
+        branch = subprocess.check_output(["git","symbolic-ref", "--short", "HEAD"], universal_newlines=True).strip()
     except Exception as e:
         print(e)
-        pass
 
     result = get_ticket_id_from_branch_name(branch)
     issue_number = ""
