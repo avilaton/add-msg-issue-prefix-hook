@@ -21,12 +21,7 @@ def main():
         print(e)
         pass
 
-    print("branch: {}".format(branch))
-    print("using new regex, ticket is: {}".format(get_ticket_id_from_branch_name(branch)))
-
-    regexp = r"(DR-|dr-)(.\d*)"
-
-    result = re.search(regexp, branch)
+    result = get_ticket_id_from_branch_name(branch)
     issue_number = ""
 
     if result:
