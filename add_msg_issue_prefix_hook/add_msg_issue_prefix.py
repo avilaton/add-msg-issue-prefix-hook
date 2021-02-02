@@ -28,8 +28,9 @@ def main():
 
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
+        content_subject = content.split("\n", maxsplit=1)[0].strip()
         f.seek(0, 0)
-        if issue_number and issue_number not in content:
+        if issue_number and issue_number not in content_subject:
             f.write("{} {}".format(issue_number, content))
         else:
             f.write(content)
