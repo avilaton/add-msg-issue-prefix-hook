@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import sys
 import re
 import subprocess
@@ -11,10 +12,11 @@ def get_ticket_id_from_branch_name(branch):
         return matches[0]
 
 
-def main(*args, **kwargs):
-    print(args)
-    print(kwargs)
-    commit_msg_filepath = sys.argv[1]
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("commit_msg_filepath")
+    args = parser.parse_args()
+    commit_msg_filepath = args.commit_msg_filepath
 
     branch = ""
     try:
