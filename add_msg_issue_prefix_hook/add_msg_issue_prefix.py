@@ -11,7 +11,9 @@ def get_ticket_id_from_branch_name(branch):
         return matches[0]
 
 
-def main():
+def main(*args, **kwargs):
+    print(args)
+    print(kwargs)
     commit_msg_filepath = sys.argv[1]
 
     branch = ""
