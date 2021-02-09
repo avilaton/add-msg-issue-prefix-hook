@@ -15,9 +15,13 @@ def get_ticket_id_from_branch_name(branch):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("commit_msg_filepath")
+    parser.add_argument(
+        '-t', '--template', default="[{}]",
+        help='branch to disallow commits to, may be specified multiple times',
+    )
     args = parser.parse_args()
     commit_msg_filepath = args.commit_msg_filepath
-
+    print(args.template)
     branch = ""
     try:
         branch = subprocess.check_output(["git","symbolic-ref", "--short", "HEAD"], universal_newlines=True).strip()
