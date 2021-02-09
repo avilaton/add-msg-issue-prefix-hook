@@ -13,16 +13,18 @@ def get_ticket_id_from_branch_name(branch):
 
 
 def main():
+    print("HI")
     parser = argparse.ArgumentParser()
     parser.add_argument("commit_msg_filepath")
     parser.add_argument(
         '-t', '--template', default="[{}]",
-        help='branch to disallow commits to, may be specified multiple times',
+        help='Template to render ticket id into',
     )
     args = parser.parse_args()
     commit_msg_filepath = args.commit_msg_filepath
-    print("hello from hook")
-    print(args.template)
+    template = args.template
+
+    print(template)
 
     branch = ""
     try:
@@ -42,6 +44,7 @@ def main():
         f.seek(0, 0)
         if issue_number and issue_number not in content_subject:
             f.write("[{}] {}".format(issue_number, content))
+            print(template.format(issue_number))
         else:
             f.write(content)
 
