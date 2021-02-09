@@ -13,7 +13,6 @@ def get_ticket_id_from_branch_name(branch):
 
 
 def main():
-    print("HI")
     parser = argparse.ArgumentParser()
     parser.add_argument("commit_msg_filepath")
     parser.add_argument(
@@ -23,8 +22,6 @@ def main():
     args = parser.parse_args()
     commit_msg_filepath = args.commit_msg_filepath
     template = args.template
-
-    print(template)
 
     branch = ""
     try:
@@ -43,8 +40,8 @@ def main():
         content_subject = content.split("\n", maxsplit=1)[0].strip()
         f.seek(0, 0)
         if issue_number and issue_number not in content_subject:
-            f.write("[{}] {}".format(issue_number, content))
-            print(template.format(issue_number))
+            prefix = template.format(issue_number)
+            f.write("{} {}".format(prefix, content))
         else:
             f.write(content)
 
