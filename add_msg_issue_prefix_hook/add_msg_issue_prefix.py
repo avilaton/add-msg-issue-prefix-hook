@@ -21,7 +21,9 @@ def main():
     )
     args = parser.parse_args()
     commit_msg_filepath = args.commit_msg_filepath
+    print("hello from hook")
     print(args.template)
+
     branch = ""
     try:
         branch = subprocess.check_output(["git","symbolic-ref", "--short", "HEAD"], universal_newlines=True).strip()
