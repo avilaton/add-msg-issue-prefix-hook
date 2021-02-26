@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import sys
 import re
 import subprocess
@@ -12,7 +13,15 @@ def get_ticket_id_from_branch_name(branch):
 
 
 def main():
-    commit_msg_filepath = sys.argv[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("commit_msg_filepath")
+    parser.add_argument(
+        '-t', '--template', default="[{}]",
+        help='Template to render ticket id into',
+    )
+    args = parser.parse_args()
+    commit_msg_filepath = args.commit_msg_filepath
+    template = args.template
 
     branch = ""
     try:
@@ -31,7 +40,8 @@ def main():
         content_subject = content.split("\n", maxsplit=1)[0].strip()
         f.seek(0, 0)
         if issue_number and issue_number not in content_subject:
-            f.write("[{}] {}".format(issue_number, content))
+            prefix = template.format(issue_number)
+            f.write("{} {}".format(prefix, content))
         else:
             f.write(content)
 
