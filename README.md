@@ -15,6 +15,8 @@ Add this to your `.pre-commit-config.yaml`
     rev: v0.0.5  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
+        args:
+        - "<path_to_your_COMMIT_EDITMSG_file>"
 ```
 
 and install prepare-commit-msg hooks using
