@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-import sys
 import re
 import subprocess
 
 
-def get_ticket_id_from_branch_name(branch):
+def get_issue_name_from_branch_name(branch):
     matches = re.findall('[a-zA-Z]{1,10}-[0-9]{1,5}', branch)
     if len(matches) > 0:
         return matches[0]
@@ -29,19 +28,15 @@ def main():
     except Exception as e:
         print(e)
 
-    result = get_ticket_id_from_branch_name(branch)
-    issue_number = ""
-
-    if result:
-        issue_number = result.upper()
+    issue_name = get_issue_name_from_branch_name(branch)
 
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
         content_subject = content.split("\n", maxsplit=1)[0].strip()
         f.seek(0, 0)
-        if issue_number and issue_number not in content_subject:
-            prefix = template.format(issue_number)
-            f.write("{} {}".format(prefix, content))
+        if issue_name and issue_name not in content_subject:
+            suffix = template.format(issue_name)
+            f.write("{}\n\n {}".format(content, suffix))
         else:
             f.write(content)
 
