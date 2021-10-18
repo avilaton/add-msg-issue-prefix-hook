@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "add_msg_issue_prefix_hook"
-version = "v0.0.4"
-description = "Commit hook preparing message using branch name"
-authors = ["Gastón Avila <avila.gas@gmail.com>"]
+name = "add_msg_issue_suffix_hook"
+version = "v0.1.0"
+description = "Commit hook appending message using branch name"
+authors = ["Ricardo Jesus"]
 
 [tool.poetry.dependencies]
 python = "^3.5"
@@ -11,7 +11,7 @@ python = "^3.5"
 pytest = "^5.0.0"
 
 [tool.poetry.scripts]
-add-msg-issue-prefix = "add_msg_issue_prefix_hook.add_msg_issue_prefix:main"
+add-msg-issue-suffix = "add_msg_issue_suffix_hook.add_msg_issue_suffix:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

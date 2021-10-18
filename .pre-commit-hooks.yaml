@@ -1,7 +1,7 @@
--   id: add-msg-issue-prefix
-    name: Add issue as commit message prefix
-    description: Searches the branch name for something looking like a jira issue name and prepends the commit message with it
-    entry: add-msg-issue-prefix
+-   id: add-msg-issue-suffix
+    name: Add issue as commit message suffix
+    description: Searches the branch name for something looking like a jira issue's name and apends the commit message with it
+    entry: add-msg-issue-sufix
     language: python
     always_run: true
     stages: [prepare-commit-msg]
