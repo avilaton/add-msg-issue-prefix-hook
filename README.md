@@ -1,7 +1,7 @@
 add-msg-issue-prefix-hook
 =========================
 
-A prepare-commit-msg hook for pre-commit.
+A prepare-commit-msg hook for.
 
 See also: https://github.com/pre-commit/pre-commit
 
