@@ -12,7 +12,7 @@ Add this to your `.pre-commit-config.yaml`
 
 ```yaml
 -   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: v0.0.5  # Use the ref you want to point at
+    rev: v0.0.7  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
 ```
@@ -28,7 +28,7 @@ Change how the issue is rendered to the commit message using the `--template` ar
 
 ```yaml
 -   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: v0.0.5  # Use the ref you want to point at
+    rev: v0.0.7  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
         args:
@@ -42,7 +42,7 @@ Customize where the issue key is inserted using regular expressions. The followi
 
 ```yaml
 -   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: v0.0.5  # Use the ref you want to point at
+    rev: v0.0.7  # Use the ref you want to point at
     hooks:
     - id: add-msg-issue-prefix
         name: add-msg-issue-prefix-test
