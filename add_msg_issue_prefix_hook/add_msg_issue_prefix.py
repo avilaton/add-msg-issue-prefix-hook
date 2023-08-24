@@ -78,6 +78,7 @@ def main():
         "--default",
         help="Default prefix if no issue is found",
     )
+
     args = parser.parse_args()
     commit_msg_filepath = args.commit_msg_filepath
     template = args.template
@@ -93,7 +94,7 @@ def main():
     except Exception as e:
         print(e)
 
-    if result := get_ticket_id_from_branch_name(pattern, branch):
+   if result := get_ticket_id_from_branch_name(pattern, branch):
         issue_number = result.upper()
     else:
         issue_number = ""
