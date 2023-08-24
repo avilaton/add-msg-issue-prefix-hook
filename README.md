@@ -1,4 +1,4 @@
-add-msg-issue-prefix-hook
+issue_prefix_hook
 =========================
 
 A prepare-commit-msg hook for.
@@ -11,8 +11,8 @@ See also: https://github.com/pre-commit/pre-commit
 Add this to your `.pre-commit-config.yaml`
 
 ```yaml
--   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: v0.0.7  # Use the ref you want to point at
+-   repo: https://github.com/RobertLD/add-msg-issue-prefix-hook
+    rev: v0.0.1  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
 ```
@@ -34,6 +34,19 @@ Change how the issue is rendered to the commit message using the `--template` ar
         args:
             - --template=[{}]
 
+```
+
+### Optional default argument
+
+Add a default issue if one is not provided
+
+```yaml
+-   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
+    rev: v0.0.7  # Use the ref you want to point at
+    hooks:
+    -   id: add-msg-issue-prefix
+        args:
+            - --default=[NOJIRA]
 ```
 
 ### Optional insert after argument
