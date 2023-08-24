@@ -5,21 +5,40 @@ import re
 import subprocess
 
 
-def get_ticket_id_from_branch_name(branch):
-    matches = re.findall("[a-zA-Z0-9]{1,10}-[0-9]{1,5}", branch)
+def get_ticket_id_from_branch_name(pattern: re.Pattern, branch: str) -> str:
+    """
+    Extracts the issue identifier from the branch name.
+
+    Args
+    ----
+        pattern (re.Pattern): pattern to match the issue identifier
+        branch (str): branch name
+
+    Returns
+    -------
+        str or None: issue identifier if found, None otherwise
+
+    """
+    matches = re.findall(pattern, branch)
     if len(matches) > 0:
         return matches[0]
 
 
-def modify_commit_message(content: str, issue_number: str, pattern: re.Pattern) -> str:
-    """Inserts the issue number into the commit message after the specified regex pattern.
+def modify_commit_message(content: str, issue_number: str,
+                          pattern: re.Pattern) -> str:
+    """
+    Inserts the issue number into the commit message after the specified
+    regex pattern.
 
-    Args:
+    Args
+    ----
         content (str): commit message contents
         issue_number (str): issue identifier to insert
-        pattern (re.Pattern): pattern after which to insert the issue identifier
+        pattern (re.Pattern): pattern after which to insert the issue number
 
-    Returns: str
+    Returns
+    -------
+        str: modified commit message
 
     """
     match = re.search(pattern, content)
@@ -28,7 +47,7 @@ def modify_commit_message(content: str, issue_number: str, pattern: re.Pattern) 
             [
                 match.group().strip(),
                 issue_number.strip(),
-                content[match.end() :].strip(),
+                content[match.end():].strip(),
             ]
         )
     return " ".join([issue_number.strip(), content])
@@ -47,12 +66,20 @@ def main():
         "-i",
         "--insert-after",
         default="^",
-        help="Regex pattern describing the text after which to insert the issue key.",
+        help="Regex pattern describing the text after which to insert the issue key.",  # noqa: E501
     )
+    parser.add_argument(
+        "-p",
+        "--pattern",
+        default="[a-zA-Z0-9]{1,10}-[0-9]{1,5}",
+        help="Regex pattern describing the issue key.",
+    )
+
     args = parser.parse_args()
     commit_msg_filepath = args.commit_msg_filepath
     template = args.template
-    pattern = re.compile(args.insert_after)
+    insert_after = re.compile(args.insert_after)
+    pattern = re.compile(args.pattern)
 
     branch = ""
     try:
@@ -62,7 +89,7 @@ def main():
     except Exception as e:
         print(e)
 
-    result = get_ticket_id_from_branch_name(branch)
+    result = get_ticket_id_from_branch_name(pattern, branch)
     issue_number = ""
 
     if result:
@@ -74,7 +101,7 @@ def main():
         f.seek(0, 0)
         if issue_number and issue_number not in content_subject:
             prefix = template.format(issue_number)
-            new_msg = modify_commit_message(content, prefix, pattern)
+            new_msg = modify_commit_message(content, prefix, insert_after)
             f.write(new_msg)
         else:
             f.write(content)
