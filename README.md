@@ -1,7 +1,7 @@
 issue_prefix_hook
 =========================
 
-A prepare-commit-msg hook for.
+A fork of the [add-msg-issue-prefix-hook](https://github.com/avilaton/add-msg-issue-prefix-hook) that allows for default issues.
 
 See also: https://github.com/pre-commit/pre-commit
 
@@ -27,8 +27,8 @@ pre-commit install --hook-type prepare-commit-msg
 Change how the issue is rendered to the commit message using the `--template` argument.
 
 ```yaml
--   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: v0.0.7  # Use the ref you want to point at
+-   repo: https://github.com/RobertLD/add-msg-issue-prefix-hook
+    rev: v0.0.1  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
         args:
@@ -41,8 +41,8 @@ Change how the issue is rendered to the commit message using the `--template` ar
 Add a default issue if one is not provided
 
 ```yaml
--   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: v0.0.7  # Use the ref you want to point at
+-   repo: https://github.com/RobertLD/add-msg-issue-prefix-hook
+    rev: v0.0.1  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
         args:
@@ -54,8 +54,8 @@ Add a default issue if one is not provided
 Customize where the issue key is inserted using regular expressions. The following example allows commit messages of the form `feat: add feature` to be updated to `feat: [ABC-123] add feature`.
 
 ```yaml
--   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
-    rev: v0.0.7  # Use the ref you want to point at
+-   repo: https://github.com/RobertLD/add-msg-issue-prefix-hook
+    rev: v0.0.1  # Use the ref you want to point at
     hooks:
     - id: add-msg-issue-prefix
         name: add-msg-issue-prefix-test
