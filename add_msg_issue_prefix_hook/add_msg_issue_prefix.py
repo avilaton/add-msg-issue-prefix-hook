@@ -41,8 +41,7 @@ def modify_commit_message(content: str, issue_number: str,
         str: modified commit message
 
     """
-    match = re.search(pattern, content)
-    if match:
+    if match := re.search(pattern, content):
         return " ".join(
             [
                 match.group().strip(),
@@ -74,10 +73,16 @@ def main():
         default="[a-zA-Z0-9]{1,10}-[0-9]{1,5}",
         help="Regex pattern describing the issue key.",
     )
+    parser.add_argument(
+        "-d",
+        "--default",
+        help="Default prefix if no issue is found",
+    )
 
     args = parser.parse_args()
     commit_msg_filepath = args.commit_msg_filepath
     template = args.template
+    default = args.default
     insert_after = re.compile(args.insert_after)
     pattern = re.compile(args.pattern)
 
@@ -89,12 +94,10 @@ def main():
     except Exception as e:
         print(e)
 
-    result = get_ticket_id_from_branch_name(pattern, branch)
-    issue_number = ""
-
-    if result:
+    if result := get_ticket_id_from_branch_name(pattern, branch):
         issue_number = result.upper()
-
+    else:
+        issue_number = ""
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
         content_subject = content.split("\n", maxsplit=1)[0].strip()
@@ -102,6 +105,9 @@ def main():
         if issue_number and issue_number not in content_subject:
             prefix = template.format(issue_number)
             new_msg = modify_commit_message(content, prefix, insert_after)
+            f.write(new_msg)
+        elif default:
+            new_msg = modify_commit_message(content, default, insert_after)
             f.write(new_msg)
         else:
             f.write(content)
