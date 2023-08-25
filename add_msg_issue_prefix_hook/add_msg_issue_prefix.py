@@ -94,7 +94,7 @@ def main():
     except Exception as e:
         print(e)
 
-   if result := get_ticket_id_from_branch_name(pattern, branch):
+    if result := get_ticket_id_from_branch_name(pattern, branch):
         issue_number = result.upper()
     else:
         issue_number = ""
