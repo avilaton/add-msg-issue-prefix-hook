@@ -83,7 +83,7 @@ def main():
     template = args.template
     default = args.default
     insert_after = re.compile(args.insert_after)
-    pattern = re.compile(args.insert_after)
+    pattern = re.compile(args.pattern)
 
     branch = ""
     try:
