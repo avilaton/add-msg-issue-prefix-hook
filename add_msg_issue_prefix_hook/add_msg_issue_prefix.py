@@ -41,6 +41,7 @@ def modify_commit_message(content: str, issue_number: str,
         str: modified commit message
 
     """
+    return "{} {}".format(issue_number, content)
     if match := re.search(pattern, content):
         return match.group().strip() + \
             " ".join([issue_number.strip(), content[match.end():].strip()])
