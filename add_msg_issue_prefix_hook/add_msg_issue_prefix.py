@@ -79,7 +79,7 @@ def main():
             prefix = template.format(issue_number)
             new_msg = modify_commit_message(content, prefix, pattern)
             f.write(new_msg)
-        elif default:
+        elif default and issue_number not in content_subject:
             new_msg = modify_commit_message(content, default, pattern)
             f.write(new_msg)
         else:
