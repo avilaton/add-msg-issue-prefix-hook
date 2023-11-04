@@ -64,7 +64,6 @@ def has_tag(content_subject: str, template: str) -> bool:
     # Escape special characters in the template except for {}
     template = re.escape(template)
     template = template.replace(r"\{", "{").replace(r"\}", "}")
-
     template = template.format(r"\d+")
     return re.search(template, content_subject) is not None
 
