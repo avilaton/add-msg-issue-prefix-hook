@@ -118,6 +118,7 @@ def main():
         issue_number = result.upper()
     else:
         issue_number = ""
+
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
         content_subject = content.split("\n", maxsplit=1)[0].strip()
