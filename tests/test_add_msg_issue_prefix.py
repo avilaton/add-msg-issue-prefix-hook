@@ -29,3 +29,16 @@ def test_modify_commit_message_with_insert_after():
 
     result = add_msg_issue_prefix.modify_commit_message(content, issue_number, insert_after)
     assert result == expected_result
+
+
+def test_modify_commit_message_insert_after_not_found():
+    issue_number = "TASK-1234"
+    content = (
+        "\n# Please enter the commit message for your changes."
+        "Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n"
+    )
+    expected_result = issue_number + " " + content
+    insert_after = re.compile("^task:")
+
+    result = add_msg_issue_prefix.modify_commit_message(content, issue_number, insert_after)
+    assert result == expected_result
