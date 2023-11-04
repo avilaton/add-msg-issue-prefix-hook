@@ -60,3 +60,10 @@ Customize where the issue key is inserted using regular expressions. The followi
         name: add-msg-issue-prefix-test
         args: ["--insert-after", "^feat.?:|^fix.?:"]
 ```
+
+## Development
+
+To run tests:
+```bash
+poetry run python -m pytest .
+```
