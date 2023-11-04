@@ -68,25 +68,30 @@ def has_tag(content_subject: str, template: str) -> bool:
     return re.search(template, content_subject) is not None
 
 
+DEFAULT_TEMPLATE = "[{}]"
+DEFAULT_INSERT_AFTER = "^"
+DEFAULT_PATTERN = "[a-zA-Z0-9]{1,10}-[0-9]{1,5}"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("commit_msg_filepath")
     parser.add_argument(
         "-t",
         "--template",
-        default="[{}]",
+        default=DEFAULT_TEMPLATE,
         help="Template to render ticket id into",
     )
     parser.add_argument(
         "-i",
         "--insert-after",
-        default="^",
+        default=DEFAULT_INSERT_AFTER,
         help="Regex pattern describing the text after which to insert the issue key.",  # noqa: E501
     )
     parser.add_argument(
         "-p",
         "--pattern",
-        default="[a-zA-Z0-9]{1,10}-[0-9]{1,5}",
+        default=DEFAULT_PATTERN,
         help="Regex pattern describing the issue key.",
     )
     parser.add_argument(
