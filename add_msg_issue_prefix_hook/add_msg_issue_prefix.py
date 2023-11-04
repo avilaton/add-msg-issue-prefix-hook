@@ -24,8 +24,7 @@ def get_ticket_id_from_branch_name(pattern: re.Pattern, branch: str) -> str:
         return matches[0]
 
 
-def modify_commit_message(content: str, issue_number: str,
-                          pattern: re.Pattern) -> str:
+def modify_commit_message(content: str, issue_number: str, pattern: re.Pattern) -> str:
     """
     Inserts the issue number into the commit message after the specified
     regex pattern.
@@ -42,8 +41,8 @@ def modify_commit_message(content: str, issue_number: str,
 
     """
     if match := re.search(pattern, content):
-        return match.group().strip() + \
-            " ".join([issue_number.strip(), content[match.end():]])
+        return match.group().strip() + issue_number.strip() + " " + content[match.end() :]
+
     return issue_number.strip() + " " + content
 
 
