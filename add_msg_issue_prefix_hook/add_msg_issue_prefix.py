@@ -66,7 +66,7 @@ def has_tag(content_subject: str, template: str, pattern: str) -> bool:
     template = re.escape(template)
     template = template.replace(r"\{", "{").replace(r"\}", "}")
 
-    template = template.format(fr"{pattern}")
+    template = template.format(pattern)
     return re.search(template, content_subject) is not None
 
 
@@ -119,7 +119,7 @@ def main():
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
         content_subject = content.split("\n", maxsplit=1)[0].strip()
-        tag_present = has_tag(content_subject, template, pattern)
+        tag_present = has_tag(content_subject, template, args.pattern)
         f.seek(0, 0)
         if issue_number and not tag_present:
             prefix = template.format(issue_number)
