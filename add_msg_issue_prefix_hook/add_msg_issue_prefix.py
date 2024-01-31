@@ -24,8 +24,7 @@ def get_ticket_id_from_branch_name(pattern: re.Pattern, branch: str) -> str:
         return matches[0]
 
 
-def modify_commit_message(content: str, issue_number: str,
-                          pattern: re.Pattern) -> str:
+def modify_commit_message(content: str, issue_number: str, insert_after: re.Pattern) -> str:
     """
     Inserts the issue number into the commit message after the specified
     regex pattern.
@@ -41,9 +40,9 @@ def modify_commit_message(content: str, issue_number: str,
         str: modified commit message
 
     """
-    if match := re.search(pattern, content):
-        return match.group().strip() + \
-            " ".join([issue_number.strip(), content[match.end():].strip()])
+    if match := re.search(insert_after, content):
+        return match.group().strip() + issue_number.strip() + " " + content[match.end() :]
+
     return issue_number.strip() + " " + content
 
 
@@ -64,9 +63,13 @@ def has_tag(content_subject: str, template: str) -> bool:
     # Escape special characters in the template except for {}
     template = re.escape(template)
     template = template.replace(r"\{", "{").replace(r"\}", "}")
-
     template = template.format(r"\d+")
     return re.search(template, content_subject) is not None
+
+
+DEFAULT_TEMPLATE = "[{}]"
+DEFAULT_INSERT_AFTER = "^"
+DEFAULT_PATTERN = "[a-zA-Z0-9]{1,10}-[0-9]{1,5}"
 
 
 def main():
@@ -75,19 +78,19 @@ def main():
     parser.add_argument(
         "-t",
         "--template",
-        default="[{}]",
+        default=DEFAULT_TEMPLATE,
         help="Template to render ticket id into",
     )
     parser.add_argument(
         "-i",
         "--insert-after",
-        default="^",
+        default=DEFAULT_INSERT_AFTER,
         help="Regex pattern describing the text after which to insert the issue key.",  # noqa: E501
     )
     parser.add_argument(
         "-p",
         "--pattern",
-        default="[a-zA-Z0-9]{1,10}-[0-9]{1,5}",
+        default=DEFAULT_PATTERN,
         help="Regex pattern describing the issue key.",
     )
     parser.add_argument(
@@ -115,6 +118,7 @@ def main():
         issue_number = result.upper()
     else:
         issue_number = ""
+
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
         content_subject = content.split("\n", maxsplit=1)[0].strip()
