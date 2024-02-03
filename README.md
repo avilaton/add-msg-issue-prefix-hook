@@ -31,8 +31,8 @@ Change how the issue is rendered to the commit message using the `--template` ar
     rev: v0.0.8  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
-        args: ["--default=[NOJIRA]"]
-
+        args:
+            - --template=[{}]
 
 ```
 
@@ -45,9 +45,7 @@ Change how the issue is rendered to the commit message using the `--default` arg
     rev: v0.0.8  # Use the ref you want to point at
     hooks:
     -   id: add-msg-issue-prefix
-        args:
-            - --template=[{}]
-
+        args: ["--default=[NOJIRA]"]
 ```
 
 ### Optional insert after argument
@@ -58,7 +56,14 @@ Customize where the issue key is inserted using regular expressions. The followi
 -   repo: https://github.com/avilaton/add-msg-issue-prefix-hook
     rev: v0.0.8  # Use the ref you want to point at
     hooks:
-    - id: add-msg-issue-prefix
+    -   id: add-msg-issue-prefix
         name: add-msg-issue-prefix-test
         args: ["--insert-after", "^feat.?:|^fix.?:"]
+```
+
+## Development
+
+To run tests:
+```bash
+poetry run python -m pytest .
 ```
