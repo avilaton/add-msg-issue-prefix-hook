@@ -46,7 +46,7 @@ def modify_commit_message(content: str, issue_number: str, insert_after: re.Patt
     return issue_number.strip() + " " + content
 
 
-def has_tag(content_subject: str, template: str) -> bool:
+def has_tag(content_subject: str, template: str, pattern: str) -> bool:
     """
     Checks if the commit message already has a tag matching the template.
 
@@ -54,6 +54,7 @@ def has_tag(content_subject: str, template: str) -> bool:
     ----
         content_subject (str): commit message subject
         template (str): template to match
+        pattern (str): issue key pattern to match
 
     Returns
     -------
@@ -63,7 +64,8 @@ def has_tag(content_subject: str, template: str) -> bool:
     # Escape special characters in the template except for {}
     template = re.escape(template)
     template = template.replace(r"\{", "{").replace(r"\}", "}")
-    template = template.format(r"\d+")
+
+    template = template.format(pattern)
     return re.search(template, content_subject) is not None
 
 
@@ -122,7 +124,7 @@ def main():
     with open(commit_msg_filepath, "r+") as f:
         content = f.read()
         content_subject = content.split("\n", maxsplit=1)[0].strip()
-        tag_present = has_tag(content_subject, template)
+        tag_present = has_tag(content_subject, template, args.pattern)
         f.seek(0, 0)
         if issue_number and not tag_present:
             prefix = template.format(issue_number)
