@@ -40,8 +40,9 @@ def modify_commit_message(content: str, issue_number: str, insert_after: re.Patt
         str: modified commit message
 
     """
-    if match := re.search(insert_after, content):
-        return match.group().strip() + issue_number.strip() + " " + content[match.end() :]
+    if insert_after.pattern != DEFAULT_INSERT_AFTER:
+        if match := re.search(insert_after, content):
+            return match.group().strip() + " " + issue_number.strip() + " " + content[match.end() :]
 
     return issue_number.strip() + " " + content
 

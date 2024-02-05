@@ -22,7 +22,7 @@ def test_modify_commit_message_with_insert_after():
         "Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n"
     )
     expected_result = (
-        "task:TASK-1234 \n# Please enter the commit message for your changes."
+        "task: TASK-1234 \n# Please enter the commit message for your changes."
         "Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n"
     )
     insert_after = re.compile("^task:")
