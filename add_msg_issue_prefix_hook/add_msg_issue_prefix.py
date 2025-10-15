@@ -19,9 +19,13 @@ def get_ticket_id_from_branch_name(pattern: re.Pattern, branch: str) -> str:
         str or None: issue identifier if found, None otherwise
 
     """
-    matches = re.findall(pattern, branch)
-    if len(matches) > 0:
-        return matches[0]
+
+    # use `search` instead `findall` as just the first match is needed
+    # and `search` returns a match object which can handle groups better
+    match = re.search(pattern, branch)
+
+    # return the entire match (from arbitrary number of groups)
+    return match.group(0) if match else None
 
 
 def modify_commit_message(content: str, issue_number: str, insert_after: re.Pattern) -> str:
